@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Civic AI Reporter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+
+    <div class="card" style="width: 100%; max-width: 400px; padding: 2rem;">
+        <h2 style="text-align: center; margin-bottom: 0.5rem;">🏙️ Civic AI Reporter</h2>
+        <p style="text-align: center; color: #94a3b8; margin-bottom: 2rem;">System Login Portal</p>
+        
+        {% if error %}
+        <div style="background-color: rgba(239, 68, 68, 0.1); border: 1px border #ef4444; color: #ef4444; padding: 0.75rem; border-radius: 6px; margin-bottom: 1.5rem; text-align: center;">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/login" method="POST" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label for="username" style="color: #e2e8f0; font-size: 0.9rem; font-weight: 500;">Username</label>
+                <input type="text" id="username" name="username" required 
+                    style="padding: 0.75rem; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: white;">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <label for="password" style="color: #e2e8f0; font-size: 0.9rem; font-weight: 500;">Password</label>
+                <input type="password" id="password" name="password" required 
+                    style="padding: 0.75rem; border-radius: 6px; border: 1px solid #334155; background-color: #0f172a; color: white;">
+            </div>
+
+            <button type="submit" class="btn primary-btn" style="margin-top: 0.5rem; width: 100%;">Secure Login</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #64748b;">
+            Default accounts: admin/admin | user/user
+        </p>
+    </div>
+
+</body>
+</html>

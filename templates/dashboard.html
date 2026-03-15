@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic AI Reporter</title>
+    <!-- Simple modern font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" style="padding: 1rem 2rem; background-color: #0f172a; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div style="display: flex; gap: 2rem; align-items: center;">
+            <a href="/dashboard" style="color: #e2e8f0; text-decoration: none; font-weight: 600;">Dashboard</a>
+            <a href="#map" style="color: #94a3b8; text-decoration: none;">Map</a>
+            {% if role == 'admin' %}
+            <a href="/admin" style="color: #38bdf8; text-decoration: none; font-weight: 500;">🛡️ Admin Panel</a>
+            {% endif %}
+        </div>
+        <a href="/logout" style="color: #ef4444; text-decoration: none; font-size: 0.9rem;">Logout</a>
+    </nav>
+    
+    <header class="header">
+        <h1>🏙️ Civic AI Reporter</h1>
+        <p>Smart City Monitoring System</p>
+    </header>
+
+    <main class="dashboard">
+        
+        <!-- Statistics Row -->
+        <section class="stats-row">
+            <div class="stat-card">
+                <p class="stat-title">Total Reports</p>
+                <h2 class="stat-value" id="total-reports-val">0</h2>
+            </div>
+            <div class="stat-card">
+                <p class="stat-title">Average Confidence</p>
+                <h2 class="stat-value" id="avg-conf-val">0.00</h2>
+            </div>
+        </section>
+
+        <!-- Main Workspace (Upload + Result) -->
+        <section class="workspace">
+            
+            <!-- Upload Panel -->
+            <div class="card upload-card">
+                <h2>📷 Report Issue</h2>
+                <div class="drop-zone" id="drop-zone">
+                    <p>Drag & Drop a image here, or</p>
+                    <input type="file" id="file-input" accept="image/jpeg, image/png, image/jpg" hidden>
+                    <button class="btn browse-btn" onclick="document.getElementById('file-input').click()">Browse Files</button>
+                </div>
+                <!-- Preview area for selected image before upload -->
+                <div id="preview-container" class="hidden">
+                    <img id="image-preview" src="" alt="Preview">
+                    <button id="detect-btn" class="btn primary-btn">🔍 Detect Civic Issues</button>
+                </div>
+            </div>
+
+            <!-- Result Panel -->
+            <div class="card result-card">
+                <h2>🤖 AI Detection Results</h2>
+                
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>AI is analyzing the image...</p>
+                </div>
+
+                <div id="result-content" class="hidden">
+                    <div id="issue-badge" class="badge"></div>
+                    <p id="conf-text"></p>
+                    <img id="result-image" src="" alt="Annotated Result">
+                </div>
+
+                <div id="empty-state" class="empty-state">
+                    <p>Upload an image to see results</p>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- Interactive Map -->
+        <section class="card map-card">
+            <h2>🗺️ Civic Issues Map</h2>
+            <p>Recent reports plotted using GPS data.</p>
+            <div id="map"></div>
+        </section>
+
+        <!-- Live Feed / Ticket Management -->
+        <section class="card feed-card">
+            <h2>📋 Live Issue Feed</h2>
+            <p>Read-Only view of the latest 20 civic issues.</p>
+            <div id="feed-container" class="feed-container">
+                <!-- Feed items will be populated via JS -->
+                 <p class="empty-state">Loading reports...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Leaflet Script -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+
+</body>
+</html>

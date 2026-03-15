@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Civic AI Reporter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" style="padding: 1rem 2rem; background-color: #0f172a; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div style="display: flex; gap: 2rem; align-items: center;">
+            <a href="/dashboard" style="color: #94a3b8; text-decoration: none;">Dashboard</a>
+            <a href="/admin" style="color: #e2e8f0; text-decoration: none; font-weight: 600;">🛡️ Admin Panel</a>
+        </div>
+        <a href="/logout" style="color: #ef4444; text-decoration: none; font-size: 0.9rem;">Logout</a>
+    </nav>
+    
+    <header class="header">
+        <h1>🛡️ Authority Console</h1>
+        <p>Civic Issue Lifecycle Management</p>
+    </header>
+
+    <style>
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <main class="dashboard admin-layout">
+        
+        <!-- Interactive Map -->
+        <section class="card map-card" style="margin-top: 0; margin-bottom: 0;">
+            <h2>🗺️ Civic Issues Map</h2>
+            <p>Visually locate and manage reported issues.</p>
+            <div id="map" style="height: 600px;"></div>
+        </section>
+
+        <!-- Live Feed / Ticket Management -->
+        <section class="card feed-card" style="margin-top: 0;">
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>📋 Centralized Report Table</h2>
+                    <select id="status-filter" style="padding: 0.5rem; background-color: #1e293b; color: white; border: 1px solid #334155; border-radius: 6px;" onchange="filterReports()">
+                        <option value="All">View All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Verified">Verified</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                </div>
+                <!-- Search Bar -->
+                <div>
+                    <input type="text" id="search-input" placeholder="Search by ID, Issue, or Status..." style="width: 100%; padding: 0.75rem; background-color: #1e293b; color: white; border: 1px solid #334155; border-radius: 6px;" onkeyup="filterReports()">
+                </div>
+            </div>
+            
+            <div id="feed-container" class="feed-container" style="max-height: 520px; overflow-y: auto;">
+                <!-- Feed items will be populated via JS -->
+                 <p class="empty-state">Loading reports...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Admin Script -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/admin.js"></script>
+
+</body>
+</html>
